@@ -116,21 +116,7 @@ class calculator:
                 self.totalexpession=self.answer
                 self.update()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#Main
 if __name__ =="__main__":
     calc=calculator()
     calc.run()
