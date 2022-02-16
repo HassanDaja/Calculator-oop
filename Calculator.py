@@ -81,11 +81,15 @@ class calculator:
     def add_to_amswer(self,value):
         if self.answer=='0' and "." not in self.answer:
             self.answer=""
+        if self.totalexpession=='0':
+            self.totalexpession=""
         if value=='.' and '.' not in self.answer:
             self.answer+=str(value)
+            self.totalexpession += str(value)
             self.update()
         elif value!='.':
             self.answer += str(value)
+            self.totalexpession+=str(value)
             self.update()
     def minus_plus(self):
         self.answer=str(float(self.answer)* -1)
@@ -95,28 +99,42 @@ class calculator:
         self.totalexpession="0"
         self.update()
     def get_answer(self):
-        x = self.answer.replace(self.operations[self.last_used],self.last_used)
-        self.answer=str(eval(x))
-        self.totalexpession = self.answer
+        if any(ext in self.totalexpession for ext in self.operations.values()):
+            self.totalexpession = self.totalexpession.replace(self.operations[self.last_used],self.last_used)
+        self.answer=str(eval(self.totalexpession))[:12]
+        self.totalexpession = '0'
+
         self.update()
 
     def operators_func(self,operator):
-        if self.answer[-1] not in self.operations.values() and self.answer!='0':
-            if any(ext in self.answer for ext in self.operations.values()):
-                self.get_answer()
-                self.update()
-                self.answer+=operator
-                self.totalexpession=self.answer
+        if self.totalexpession[-1] not in self.operations.values() and self.totalexpession!='0':
+            if any(ext in self.totalexpession for ext in self.operations.values()):
+                pass
+        keys=list(self.operations.keys())
+        vals=list(self.operations.values())
+        self.last_used =keys[vals.index(operator)]
+        self.answer+=operator
+        self.totalexpession=self.answer
+        self.answer='0'
+        self.update()
+    
 
-            else:
-                key = list(self.operations.keys())
-                vals = list(self.operations.values())
-                self.last_used = key[vals.index(operator)]
-                self.answer+=operator
-                self.totalexpession=self.answer
-                self.update()
 
-#Main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ =="__main__":
     calc=calculator()
     calc.run()
