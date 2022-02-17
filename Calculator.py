@@ -117,22 +117,6 @@ class calculator:
         self.totalexpession=self.answer
         self.answer='0'
         self.update()
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ =="__main__":
